@@ -1,0 +1,522 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Connect — Southside Christian Church</title>
+  <meta name="description" content="Get in touch with Southside Christian Church. Send a message, find us on the map, or inquire about weddings and building rental.">
+  <link rel="stylesheet" href="css/style.css">
+  <style>
+
+    /* ── QUICK CONTACT CARDS ── */
+    .quick-contact {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 14px;
+    }
+    .qc-card {
+      background: #fff;
+      border-radius: 7px;
+      border: 1px solid var(--border);
+      padding: 18px 20px;
+      display: flex;
+      align-items: flex-start;
+      gap: 14px;
+    }
+    .qc-card__icon {
+      font-size: 24px;
+      flex-shrink: 0;
+      margin-top: 2px;
+    }
+    .qc-card__label {
+      font-family: var(--sans);
+      font-size: 10px;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: #6B4E8A;
+      margin-bottom: 4px;
+    }
+    .qc-card__value {
+      font-size: 16px;
+      color: var(--text);
+      margin-bottom: 3px;
+    }
+    .qc-card__sub {
+      font-family: var(--sans);
+      font-size: 12px;
+      color: var(--subtle);
+    }
+    .qc-card a {
+      text-decoration: none;
+      color: inherit;
+    }
+    .qc-card a:hover .qc-card__value {
+      text-decoration: underline;
+      color: #6B4E8A;
+    }
+
+    /* ── FORM CONTAINER ── */
+    .form-container {
+      background: #fff;
+      border-radius: 8px;
+      border: 1px solid var(--border);
+      overflow: hidden;
+    }
+    .form-container__header {
+      background: #6B4E8A;
+      padding: 16px 24px;
+    }
+    .form-container__title {
+      font-family: var(--sans);
+      font-size: 14px;
+      font-weight: bold;
+      color: #fff;
+      letter-spacing: 0.04em;
+      margin-bottom: 2px;
+    }
+    .form-container__sub {
+      font-family: var(--sans);
+      font-size: 12px;
+      color: #D4C0F0;
+    }
+    .form-container__body { padding: 24px; }
+
+    .form-submit {
+      width: 100%;
+      background: #6B4E8A;
+      color: #fff;
+      font-family: var(--sans);
+      font-size: 13px;
+      font-weight: bold;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      padding: 13px;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      margin-top: 4px;
+      transition: opacity 0.15s;
+    }
+    .form-submit:hover { opacity: 0.88; }
+
+    .form-container__note {
+      font-family: var(--sans);
+      font-size: 12px;
+      color: var(--subtle);
+      padding: 12px 24px;
+      border-top: 1px solid var(--sand);
+      text-align: center;
+    }
+
+    /* ── LOCATION CARD ── */
+    .location-card {
+      background: #fff;
+      border-radius: 8px;
+      border: 1px solid var(--border);
+      overflow: hidden;
+    }
+    .location-photo {
+      width: 100%;
+      height: 220px;
+      background: #C8D8C4;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-bottom: 5px solid #6B4E8A;
+      overflow: hidden;
+    }
+    .location-photo img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    .location-photo__placeholder {
+      font-family: var(--sans);
+      font-size: 13px;
+      color: var(--sage);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      opacity: 0.6;
+    }
+    .location-body {
+      padding: 22px 24px;
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+    .location-info__name {
+      font-size: 18px;
+      color: var(--text);
+      margin-bottom: 8px;
+    }
+    .location-info__addr {
+      font-family: var(--sans);
+      font-size: 14px;
+      color: var(--muted);
+      line-height: 1.8;
+      margin-bottom: 14px;
+    }
+    .location-info__addr a {
+      color: var(--muted);
+      text-decoration: none;
+    }
+    .location-info__addr a:hover { color: #6B4E8A; }
+
+    .btn--violet {
+      background: #6B4E8A;
+      color: #fff;
+    }
+
+    .service-pill {
+      background: var(--sand);
+      border-radius: 7px;
+      padding: 14px 18px;
+      text-align: center;
+      flex-shrink: 0;
+    }
+    .service-pill__label {
+      font-family: var(--sans);
+      font-size: 10px;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: #6B4E8A;
+      margin-bottom: 4px;
+    }
+    .service-pill__value {
+      font-size: 16px;
+      color: var(--text);
+    }
+
+    /* ── VENUE STEPS ── */
+    .venue-steps {
+      display: flex;
+      gap: 0;
+      margin-bottom: 28px;
+      position: relative;
+    }
+    .venue-steps::before {
+      content: '';
+      position: absolute;
+      top: 18px;
+      left: calc(16.5% + 0px);
+      right: calc(16.5% + 0px);
+      height: 2px;
+      background: var(--border);
+      z-index: 0;
+    }
+    .venue-step {
+      flex: 1;
+      text-align: center;
+      padding: 0 14px;
+      position: relative;
+      z-index: 1;
+    }
+    .venue-step__num {
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      background: #6B4E8A;
+      color: #fff;
+      font-family: var(--sans);
+      font-size: 15px;
+      font-weight: bold;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 12px;
+      position: relative;
+      z-index: 2;
+    }
+    .venue-step__title {
+      font-size: 15px;
+      color: var(--text);
+      margin-bottom: 6px;
+    }
+    .venue-step__body {
+      font-family: var(--sans);
+      font-size: 12px;
+      color: var(--muted);
+      line-height: 1.6;
+    }
+
+    .venue-cta {
+      text-align: center;
+      padding-top: 8px;
+    }
+    .venue-cta__sub {
+      font-family: var(--sans);
+      font-size: 12px;
+      color: var(--subtle);
+      margin-top: 10px;
+    }
+
+    /* ── SUCCESS MESSAGE ── */
+    .form-success {
+      display: none;
+      background: #EEF7EE;
+      border: 1px solid #9FD4AC;
+      border-radius: 6px;
+      padding: 20px 24px;
+      text-align: center;
+      font-family: var(--sans);
+      font-size: 14px;
+      color: var(--sage);
+      margin-top: 16px;
+    }
+    .form-success.show { display: block; }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 700px) {
+      .quick-contact { grid-template-columns: 1fr; }
+      .venue-steps { flex-direction: column; gap: 20px; }
+      .venue-steps::before { display: none; }
+      .location-body { flex-direction: column; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="site">
+
+  <!-- ── NAVIGATION ── -->
+  <nav aria-label="Main navigation">
+    <div class="nav-rainbow">
+      <a href="index.html"       class="nav-item"        style="background:#C0472A;">Home</a>
+      <a href="about.html"       class="nav-item"        style="background:#B8622A;">About</a>
+      <a href="how-we-live.html" class="nav-item"        style="background:#B89A2E;">How we live</a>
+      <a href="worship.html"     class="nav-item"        style="background:#3B5E45;">Worship</a>
+      <a href="events.html"      class="nav-item"        style="background:#4A8FA3;">Events</a>
+      <a href="give.html"        class="nav-item"        style="background:#3D4E9E;">Give</a>
+      <a href="connect.html"     class="nav-item active" style="background:#6B4E8A;">Connect</a>
+    </div>
+  </nav>
+
+  <!-- ── HERO ── -->
+  <header class="page-hero" style="background:#6B4E8A;">
+    <p class="page-hero-eyebrow">Connect</p>
+    <h1 class="page-hero-title">We'd love to hear from you.</h1>
+    <p class="page-hero-sub">Whether you have a question, want to visit, or are looking for a space to celebrate — reach out. We're here and we're glad you found us.</p>
+  </header>
+
+  <!-- ══════════════════════════════════════
+       QUICK CONTACT
+  ══════════════════════════════════════ -->
+  <section class="section section--white" id="contact">
+    <p class="section-eyebrow" style="color:#6B4E8A;">Get in touch</p>
+    <h2 class="section-title">Reach us directly.</h2>
+
+    <div class="quick-contact">
+      <div class="qc-card">
+        <div class="qc-card__icon">📞</div>
+        <div>
+          <p class="qc-card__label">Phone</p>
+          <a href="tel:+15742911156">
+            <p class="qc-card__value">(574) 291-1156</p>
+          </a>
+          <p class="qc-card__sub">Leave a message anytime</p>
+        </div>
+      </div>
+      <div class="qc-card">
+        <div class="qc-card__icon">✉️</div>
+        <div>
+          <p class="qc-card__label">Email</p>
+          <a href="mailto:office@southsidedoc.org">
+            <p class="qc-card__value">office@southsidedoc.org</p>
+          </a>
+          <p class="qc-card__sub">We'll respond within a few days</p>
+        </div>
+      </div>
+      <div class="qc-card">
+        <div class="qc-card__icon">👥</div>
+        <div>
+          <p class="qc-card__label">Facebook</p>
+          <!--  Replace # with the church's Facebook URL  -->
+          <a href="#" target="_blank" rel="noopener">
+            <p class="qc-card__value">Find us on Facebook</p>
+          </a>
+          <p class="qc-card__sub">Photos, updates &amp; more</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════
+       CONTACT FORM
+  ══════════════════════════════════════ -->
+  <section class="section section--sand" id="message">
+    <p class="section-eyebrow" style="color:#6B4E8A;">Send a message</p>
+    <h2 class="section-title">We'll get back to you soon.</h2>
+
+    <div class="form-container">
+      <div class="form-container__header">
+        <p class="form-container__title">Contact Southside Christian Church</p>
+        <p class="form-container__sub">All inquiries welcome — no question too small</p>
+      </div>
+
+      <!--
+        ══════════════════════════════════════════════════════════
+        CONTACT FORM OPTIONS
+        ══════════════════════════════════════════════════════════
+        OPTION A — Use Formspree (free, no backend needed):
+          1. Sign up at formspree.io
+          2. Create a new form and get your form ID
+          3. Change the <form> tag below to:
+             <form action="https://formspree.io/f/YOUR_FORM_ID" method="POST">
+          4. Remove the JavaScript form handler at the bottom
+
+        OPTION B — Use a Google Form embed:
+          Replace this entire form block with:
+          <iframe
+            src="YOUR_GOOGLE_FORM_EMBED_URL"
+            style="width:100%; min-height:600px; border:none;">
+          </iframe>
+        ══════════════════════════════════════════════════════════
+      -->
+      <div class="form-container__body">
+        <form id="contact-form" onsubmit="handleSubmit(event)">
+          <div class="form-row">
+            <div class="form-field">
+              <label class="form-label" for="first-name">First name</label>
+              <input class="form-input" type="text" id="first-name" name="first-name" placeholder="First name" required>
+            </div>
+            <div class="form-field">
+              <label class="form-label" for="last-name">Last name</label>
+              <input class="form-input" type="text" id="last-name" name="last-name" placeholder="Last name" required>
+            </div>
+          </div>
+          <div class="form-field">
+            <label class="form-label" for="email">Email</label>
+            <input class="form-input" type="email" id="email" name="email" placeholder="your@email.com" required>
+          </div>
+          <div class="form-field">
+            <label class="form-label" for="inquiry">What can we help you with?</label>
+            <select class="form-select" id="inquiry" name="inquiry">
+              <option value="">Select an inquiry type…</option>
+              <option>General question</option>
+              <option>Planning a visit</option>
+              <option>Wedding inquiry</option>
+              <option>Building rental</option>
+              <option>Healing grief ministry</option>
+              <option>Prayer request</option>
+              <option>Other</option>
+            </select>
+          </div>
+          <div class="form-field">
+            <label class="form-label" for="message">Your message</label>
+            <textarea class="form-textarea" id="message" name="message" placeholder="Tell us what's on your mind…" required></textarea>
+          </div>
+          <button class="form-submit" type="submit">Send message</button>
+        </form>
+        <div class="form-success" id="form-success">
+          ✓ &nbsp; Thank you! Your message has been sent. We'll be in touch within a few days.
+        </div>
+      </div>
+      <p class="form-container__note">Your message goes directly to our team. We typically respond within 2–3 business days.</p>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════
+       FIND US
+  ══════════════════════════════════════ -->
+  <section class="section section--white" id="find-us">
+    <p class="section-eyebrow" style="color:#6B4E8A;">Find us</p>
+    <h2 class="section-title">Come see us in person.</h2>
+
+    <div class="location-card">
+      <div class="location-photo">
+        <!--  Replace with actual church exterior photo  -->
+        <!--  <img src="images/church-exterior.jpg" alt="Exterior of Southside Christian Church">  -->
+        <span class="location-photo__placeholder">Church exterior photo</span>
+      </div>
+      <div class="location-body">
+        <div class="location-info">
+          <h3 class="location-info__name">Southside Christian Church</h3>
+          <p class="location-info__addr">
+            1329 East Jackson Rd<br>
+            South Bend, IN 46614<br>
+            <a href="tel:+15742911156">(574) 291-1156</a>
+          </p>
+          <a class="btn btn--violet"
+             href="https://maps.google.com/?q=1329+East+Jackson+Rd+South+Bend+IN+46614"
+             target="_blank"
+             rel="noopener">
+            Get directions →
+          </a>
+        </div>
+        <div class="service-pill">
+          <p class="service-pill__label">Sunday worship</p>
+          <p class="service-pill__value">10:00 a.m.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════
+       WEDDINGS & BUILDING RENTAL
+  ══════════════════════════════════════ -->
+  <section class="section section--sand" id="venue">
+    <p class="section-eyebrow" style="color:#6B4E8A;">Weddings &amp; building rental</p>
+    <h2 class="section-title">Host your special day here.</h2>
+    <p class="section-desc">Whether you're planning a wedding, a family gathering, or a community event, Southside provides a peaceful, beautiful, and welcoming space. We've hosted countless joyful celebrations and would love to host yours.</p>
+
+    <div class="venue-steps">
+      <div class="venue-step">
+        <div class="venue-step__num">1</div>
+        <h3 class="venue-step__title">Schedule a tour</h3>
+        <p class="venue-step__body">Reach out to see our facilities and discuss your event needs.</p>
+      </div>
+      <div class="venue-step">
+        <div class="venue-step__num">2</div>
+        <h3 class="venue-step__title">Secure your date</h3>
+        <p class="venue-step__body">We'll walk you through our simple booking process and guidelines.</p>
+      </div>
+      <div class="venue-step">
+        <div class="venue-step__num">3</div>
+        <h3 class="venue-step__title">Enjoy your event</h3>
+        <p class="venue-step__body">Relax and celebrate in a beautiful, welcoming space.</p>
+      </div>
+    </div>
+
+    <div class="venue-cta">
+      <a class="btn btn--violet" href="#message">Schedule a tour</a>
+      <p class="venue-cta__sub">Use the contact form above and select "Wedding inquiry" or "Building rental"</p>
+    </div>
+  </section>
+
+  <!-- ── FOOTER ── -->
+  <footer class="site-footer">
+    <p class="site-footer__name">Southside Christian Church</p>
+    <p class="site-footer__addr">
+      1329 East Jackson Rd, South Bend, IN 46614<br>
+      (574) 291-1156
+    </p>
+    <div class="footer-rainbow">
+      <span style="background:#C0472A;"></span>
+      <span style="background:#B8622A;"></span>
+      <span style="background:#B89A2E;"></span>
+      <span style="background:#3B5E45;"></span>
+      <span style="background:#4A8FA3;"></span>
+      <span style="background:#3D4E9E;"></span>
+      <span style="background:#6B4E8A;"></span>
+    </div>
+  </footer>
+
+</div><!-- /.site -->
+
+<script>
+  /*
+    Simple form handler — shows a success message on submit.
+    Replace this with Formspree (see instructions above) so
+    messages actually get delivered to the church's inbox.
+  */
+  function handleSubmit(e) {
+    e.preventDefault();
+    document.getElementById('contact-form').style.display = 'none';
+    document.getElementById('form-success').classList.add('show');
+  }
+</script>
+
+</body>
+</html>
