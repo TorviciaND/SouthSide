@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Worship — Southside Christian Church</title>
+  <meta name="description" content="Join us for Sunday worship at 10:00 a.m. Download the weekly bulletin, watch our most recent service recording, or browse our full archive on YouTube.">
+  <link rel="stylesheet" href="css/style.css">
+  <style>
+
+    /* ── SERVICE STRIP ── */
+    .service-strip {
+      background: #3B5E45;
+      color: #fff;
+      padding: 16px 32px;
+      display: flex;
+      align-items: center;
+      gap: 32px;
+      flex-wrap: wrap;
+    }
+    .service-detail__label {
+      font-family: var(--sans);
+      font-size: 10px;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: #9FD4AC;
+      display: block;
+      margin-bottom: 3px;
+    }
+    .service-detail__value {
+      font-family: var(--sans);
+      font-size: 15px;
+      font-weight: bold;
+      color: #fff;
+    }
+
+    /* ── BULLETIN CARD ── */
+    .bulletin-card {
+      background: #fff;
+      border-radius: 8px;
+      border: 1px solid var(--border);
+      border-left: 5px solid #3B5E45;
+      overflow: hidden;
+    }
+    .bulletin-inner {
+      padding: 22px 24px;
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+    .bulletin-icon {
+      width: 54px;
+      height: 68px;
+      background: var(--sand);
+      border-radius: 5px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 28px;
+      flex-shrink: 0;
+    }
+    .bulletin-info { flex: 1; min-width: 160px; }
+    .bulletin-info__label {
+      font-family: var(--sans);
+      font-size: 10px;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: #3B5E45;
+      margin-bottom: 5px;
+    }
+    .bulletin-info__date {
+      font-size: 20px;
+      color: var(--text);
+      margin-bottom: 3px;
+    }
+    .bulletin-info__sub {
+      font-family: var(--sans);
+      font-size: 12px;
+      color: var(--subtle);
+    }
+    .bulletin-actions {
+      display: flex;
+      gap: 10px;
+      flex-shrink: 0;
+    }
+    .btn--sage-outline {
+      background: transparent;
+      color: #3B5E45;
+      border: 1.5px solid #3B5E45;
+    }
+    .bulletin-note {
+      font-family: var(--sans);
+      font-size: 12px;
+      color: var(--subtle);
+      padding: 11px 24px;
+      border-top: 1px solid var(--sand);
+      background: var(--cream);
+    }
+
+    /* ── VIDEO CARD ── */
+    .video-card {
+      background: #fff;
+      border-radius: 8px;
+      border: 1px solid var(--border);
+      overflow: hidden;
+    }
+    .video-thumb {
+      width: 100%;
+      height: 220px;
+      background: #1a1a2e;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      overflow: hidden;
+    }
+    /* If a real thumbnail image is available:
+       .video-thumb img { width:100%; height:100%; object-fit:cover; } */
+    .video-play {
+      width: 64px;
+      height: 64px;
+      background: rgba(255,255,255,0.12);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: 2px solid rgba(255,255,255,0.35);
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+    .video-play:hover { background: rgba(255,255,255,0.22); }
+    .video-play__arrow {
+      width: 0;
+      height: 0;
+      border-top: 13px solid transparent;
+      border-bottom: 13px solid transparent;
+      border-left: 22px solid #fff;
+      margin-left: 5px;
+    }
+    .video-thumb__label {
+      position: absolute;
+      bottom: 12px;
+      left: 16px;
+      font-family: var(--sans);
+      font-size: 10px;
+      color: rgba(255,255,255,0.55);
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+    }
+    .video-info { padding: 18px 22px; }
+    .video-info__meta {
+      font-family: var(--sans);
+      font-size: 11px;
+      color: #3B5E45;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      margin-bottom: 5px;
+    }
+    .video-info__title {
+      font-size: 18px;
+      color: var(--text);
+      margin-bottom: 8px;
+    }
+    .video-info__desc {
+      font-family: var(--sans);
+      font-size: 13px;
+      color: var(--muted);
+      line-height: 1.7;
+      margin-bottom: 18px;
+    }
+    .video-footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+    .youtube-link {
+      font-family: var(--sans);
+      font-size: 12px;
+      color: var(--subtle);
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .youtube-link:hover { color: var(--muted); }
+    .yt-badge {
+      background: var(--sand);
+      border-radius: 3px;
+      padding: 3px 8px;
+      font-size: 10px;
+      font-weight: bold;
+      color: #555;
+    }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 600px) {
+      .service-strip { gap: 18px; padding: 16px 20px; }
+      .bulletin-inner { flex-direction: column; align-items: flex-start; }
+      .bulletin-actions { width: 100%; }
+      .bulletin-actions .btn { flex: 1; text-align: center; }
+      .video-footer { flex-direction: column; align-items: flex-start; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="site">
+
+  <!-- ── NAVIGATION ── -->
+  <nav aria-label="Main navigation">
+    <div class="nav-rainbow">
+      <a href="index.html"       class="nav-item"        style="background:#C0472A;">Home</a>
+      <a href="about.html"       class="nav-item"        style="background:#B8622A;">About</a>
+      <a href="how-we-live.html" class="nav-item"        style="background:#B89A2E;">How we live</a>
+      <a href="worship.html"     class="nav-item active" style="background:#3B5E45;">Worship</a>
+      <a href="events.html"      class="nav-item"        style="background:#4A8FA3;">Events</a>
+      <a href="give.html"        class="nav-item"        style="background:#3D4E9E;">Give</a>
+      <a href="connect.html"     class="nav-item"        style="background:#6B4E8A;">Connect</a>
+    </div>
+  </nav>
+
+  <!-- ── HERO ── -->
+  <header class="page-hero" style="background:#3B5E45;">
+    <p class="page-hero-eyebrow">Worship</p>
+    <h1 class="page-hero-title">Join us in worship.</h1>
+    <p class="page-hero-sub">We gather each Sunday at 10:00 a.m. for a service rooted in historic tradition and open to all. Whether you're joining us in person or from home, you are welcome here.</p>
+  </header>
+
+  <!-- ── SERVICE DETAILS STRIP ── -->
+  <div class="service-strip">
+    <div class="service-detail">
+      <span class="service-detail__label">Day</span>
+      <span class="service-detail__value">Every Sunday</span>
+    </div>
+    <div class="service-detail">
+      <span class="service-detail__label">Time</span>
+      <span class="service-detail__value">10:00 a.m.</span>
+    </div>
+    <div class="service-detail">
+      <span class="service-detail__label">Location</span>
+      <span class="service-detail__value">1329 East Jackson Rd, South Bend</span>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════
+       WEEKLY BULLETIN
+  ══════════════════════════════════════ -->
+  <section class="section section--white" id="bulletin">
+    <p class="section-eyebrow" style="color:#3B5E45;">Weekly bulletin</p>
+    <h2 class="section-title">This Sunday's order of worship.</h2>
+
+    <div class="bulletin-card">
+      <div class="bulletin-inner">
+        <div class="bulletin-icon">📄</div>
+        <div class="bulletin-info">
+          <p class="bulletin-info__label">Current bulletin</p>
+          <p class="bulletin-info__date">Sunday, August 24, 2026</p>
+          <p class="bulletin-info__sub">PDF · Updated each week</p>
+        </div>
+        <div class="bulletin-actions">
+          <!--
+            UPDATE EACH WEEK:
+            1. Replace files/bulletin.pdf with the new PDF
+            2. Update the date text above
+            The View and Download buttons below require no changes.
+          -->
+          <a class="btn btn--sage" href="files/bulletin.pdf" target="_blank" rel="noopener">View</a>
+          <a class="btn btn--sage-outline btn" href="files/bulletin.pdf" download>Download</a>
+        </div>
+      </div>
+      <p class="bulletin-note">Opens in a new tab &nbsp;·&nbsp; If you have trouble viewing, use the Download button instead.</p>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════
+       SERMON RECORDINGS
+  ══════════════════════════════════════ -->
+  <section class="section section--sand" id="recordings">
+    <p class="section-eyebrow" style="color:#3B5E45;">Sermon recordings</p>
+    <h2 class="section-title">Catch up or revisit a service.</h2>
+
+    <div class="video-card">
+      <div class="video-thumb">
+        <!--
+          To embed a real YouTube video, replace this entire .video-thumb div with:
+          <div style="position:relative; padding-bottom:56.25%; height:0; overflow:hidden;">
+            <iframe
+              src="https://www.youtube.com/embed/YOUR_VIDEO_ID"
+              style="position:absolute; top:0; left:0; width:100%; height:100%; border:0;"
+              allowfullscreen
+              title="Sunday Service — Southside Christian Church">
+            </iframe>
+          </div>
+        -->
+        <div class="video-play">
+          <div class="video-play__arrow"></div>
+        </div>
+        <span class="video-thumb__label">YouTube · Most recent service</span>
+      </div>
+      <div class="video-info">
+        <p class="video-info__meta">Most recent · August 24, 2026</p>
+        <h3 class="video-info__title">Sunday Service — Southside Christian Church</h3>
+        <p class="video-info__desc">Missed a Sunday or want to revisit the message? Watch our most recent service below, or browse the full archive on our YouTube channel.</p>
+        <div class="video-footer">
+          <!--
+            Replace # with your actual YouTube video URL
+          -->
+          <a class="btn btn--sage" href="#" target="_blank" rel="noopener">Watch now</a>
+          <a class="youtube-link" href="#" target="_blank" rel="noopener">
+            <span class="yt-badge">YouTube</span>
+            View all recordings →
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── FOOTER ── -->
+  <footer class="site-footer">
+    <p class="site-footer__name">Southside Christian Church</p>
+    <p class="site-footer__addr">
+      1329 East Jackson Rd, South Bend, IN 46614<br>
+      (574) 291-1156
+    </p>
+    <div class="footer-rainbow">
+      <span style="background:#C0472A;"></span>
+      <span style="background:#B8622A;"></span>
+      <span style="background:#B89A2E;"></span>
+      <span style="background:#3B5E45;"></span>
+      <span style="background:#4A8FA3;"></span>
+      <span style="background:#3D4E9E;"></span>
+      <span style="background:#6B4E8A;"></span>
+    </div>
+  </footer>
+
+</div><!-- /.site -->
+
+</body>
+</html>
