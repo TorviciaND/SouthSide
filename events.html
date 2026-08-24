@@ -1,0 +1,506 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Events &amp; Programs — Southside Christian Church</title>
+  <meta name="description" content="Upcoming events and programs at Southside Christian Church — potlucks, movie nights, mini-retreats, and more. Have an idea? Suggest an event.">
+  <link rel="stylesheet" href="css/style.css">
+  <style>
+
+    /* ── EVENT CARDS ── */
+    .event-card {
+      background: #fff;
+      border-radius: 8px;
+      border: 1px solid var(--border);
+      overflow: hidden;
+      margin-bottom: 14px;
+      display: flex;
+    }
+    .event-card:last-child { margin-bottom: 0; }
+
+    .event-date {
+      width: 78px;
+      background: #4A8FA3;
+      flex-shrink: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 14px 8px;
+      text-align: center;
+    }
+    .event-date__month {
+      font-family: var(--sans);
+      font-size: 10px;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: #C8E8F0;
+      margin-bottom: 3px;
+    }
+    .event-date__day {
+      font-family: var(--sans);
+      font-size: 32px;
+      font-weight: bold;
+      color: #fff;
+      line-height: 1;
+    }
+    .event-date__dow {
+      font-family: var(--sans);
+      font-size: 10px;
+      color: #C8E8F0;
+      margin-top: 4px;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+
+    .event-body {
+      padding: 18px 20px;
+      flex: 1;
+    }
+    .event-body__title {
+      font-size: 18px;
+      color: var(--text);
+      margin-bottom: 4px;
+    }
+    .event-body__time {
+      font-family: var(--sans);
+      font-size: 11px;
+      color: #4A8FA3;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      margin-bottom: 10px;
+    }
+    .event-body__desc {
+      font-family: var(--sans);
+      font-size: 13px;
+      color: var(--muted);
+      line-height: 1.7;
+      margin-bottom: 14px;
+    }
+    .event-footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+    .event-footer__contact {
+      font-family: var(--sans);
+      font-size: 12px;
+      color: var(--subtle);
+    }
+    .event-footer__rsvp {
+      font-family: var(--sans);
+      font-size: 12px;
+      font-weight: bold;
+      color: #4A8FA3;
+      text-decoration: none;
+      letter-spacing: 0.03em;
+    }
+    .event-footer__rsvp:hover { text-decoration: underline; }
+
+    /* ── LOADING / EMPTY STATES ── */
+    .events-loading,
+    .events-empty {
+      background: #fff;
+      border-radius: 8px;
+      border: 1px dashed var(--border);
+      padding: 36px;
+      text-align: center;
+      font-family: var(--sans);
+      font-size: 14px;
+      color: var(--subtle);
+    }
+    .events-loading { display: block; }
+    .events-empty   { display: none;  }
+
+    /* ── FORM CONTAINER ── */
+    .form-container {
+      background: #fff;
+      border-radius: 8px;
+      border: 1px solid var(--border);
+      overflow: hidden;
+    }
+    .form-container__header {
+      background: #4A8FA3;
+      padding: 16px 22px;
+    }
+    .form-container__title {
+      font-family: var(--sans);
+      font-size: 14px;
+      font-weight: bold;
+      color: #fff;
+      letter-spacing: 0.04em;
+      margin-bottom: 2px;
+    }
+    .form-container__sub {
+      font-family: var(--sans);
+      font-size: 12px;
+      color: #C8E8F0;
+    }
+    .form-container__body { padding: 22px; }
+
+    .form-submit {
+      width: 100%;
+      background: #4A8FA3;
+      color: #fff;
+      font-family: var(--sans);
+      font-size: 13px;
+      font-weight: bold;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      padding: 13px;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      margin-top: 4px;
+      transition: opacity 0.15s;
+    }
+    .form-submit:hover { opacity: 0.88; }
+
+    .form-container__note {
+      font-family: var(--sans);
+      font-size: 12px;
+      color: var(--subtle);
+      padding: 12px 22px;
+      border-top: 1px solid var(--sand);
+      text-align: center;
+    }
+
+    /* ── GOOGLE FORM EMBED ── */
+    .google-form-embed {
+      width: 100%;
+      border: none;
+      min-height: 600px;
+      display: block;
+    }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 600px) {
+      .event-card { flex-direction: column; }
+      .event-date { width: 100%; flex-direction: row; gap: 10px; padding: 12px 16px; justify-content: flex-start; }
+      .event-date__day { font-size: 22px; }
+      .event-footer { flex-direction: column; align-items: flex-start; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="site">
+
+  <!-- ── NAVIGATION ── -->
+  <nav aria-label="Main navigation">
+    <div class="nav-rainbow">
+      <a href="index.html"       class="nav-item"        style="background:#C0472A;">Home</a>
+      <a href="about.html"       class="nav-item"        style="background:#B8622A;">About</a>
+      <a href="how-we-live.html" class="nav-item"        style="background:#B89A2E;">How we live</a>
+      <a href="worship.html"     class="nav-item"        style="background:#3B5E45;">Worship</a>
+      <a href="events.html"      class="nav-item active" style="background:#4A8FA3;">Events</a>
+      <a href="give.html"        class="nav-item"        style="background:#3D4E9E;">Give</a>
+      <a href="connect.html"     class="nav-item"        style="background:#6B4E8A;">Connect</a>
+    </div>
+  </nav>
+
+  <!-- ── HERO ── -->
+  <header class="page-hero" style="background:#4A8FA3;">
+    <p class="page-hero-eyebrow">Events &amp; programs</p>
+    <h1 class="page-hero-title">Come gather with us.</h1>
+    <p class="page-hero-sub">From movie nights to potlucks, there's always something happening at Southside. Check back often — and if you have an idea, we'd love to hear it.</p>
+  </header>
+
+  <!-- ══════════════════════════════════════
+       UPCOMING EVENTS
+       Loaded dynamically from Google Sheets
+  ══════════════════════════════════════ -->
+  <section class="section section--white" id="events">
+    <p class="section-eyebrow" style="color:#4A8FA3;">Upcoming events</p>
+    <h2 class="section-title">What's coming up at Southside.</h2>
+
+    <!-- Events are injected here by JavaScript -->
+    <div id="events-container">
+      <div class="events-loading">Loading upcoming events…</div>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════
+       SUGGEST AN EVENT
+  ══════════════════════════════════════ -->
+  <section class="section section--sand" id="suggest">
+    <p class="section-eyebrow" style="color:#4A8FA3;">Suggest an event</p>
+    <h2 class="section-title">Have an idea? Share it with us.</h2>
+    <p class="section-desc">Community is built together. If you have an idea for a gathering, program, or event at Southside, submit it below. Our team reviews all suggestions and will be in touch if your event is approved.</p>
+
+    <div class="form-container">
+      <div class="form-container__header">
+        <p class="form-container__title">Event suggestion form</p>
+        <p class="form-container__sub">Reviewed by our team before posting · You'll hear back within a few days</p>
+      </div>
+
+      <!--
+        ══════════════════════════════════════════════════════════
+        GOOGLE FORM EMBED INSTRUCTIONS
+        ══════════════════════════════════════════════════════════
+        1. Go to forms.google.com and create a new form
+        2. Add these fields:
+             - Event name (Short answer)
+             - Suggested date (Short answer)
+             - Time (Short answer)
+             - Location (Short answer)
+             - Description (Paragraph)
+             - Your name (Short answer)
+             - Your email (Short answer)
+        3. Click Send → Embed tab → copy the iframe src URL
+        4. Replace PASTE_YOUR_GOOGLE_FORM_EMBED_URL_HERE below
+           with that URL (it looks like:
+           https://docs.google.com/forms/d/e/XXXX/viewform?embedded=true)
+        5. Delete the fallback form below the iframe comment block
+        ══════════════════════════════════════════════════════════
+
+        OPTION A — Google Form embed (recommended, replace URL below):
+        <iframe
+          class="google-form-embed"
+          src="PASTE_YOUR_GOOGLE_FORM_EMBED_URL_HERE"
+          title="Event suggestion form">
+        </iframe>
+
+        OPTION B — Fallback HTML form shown until Google Form is set up:
+      -->
+      <div class="form-container__body">
+        <div class="form-row">
+          <div class="form-field">
+            <label class="form-label">Event name</label>
+            <input class="form-input" type="text" placeholder="e.g. Neighborhood Potluck">
+          </div>
+          <div class="form-field">
+            <label class="form-label">Suggested date</label>
+            <input class="form-input" type="text" placeholder="e.g. October 12, 2026">
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-field">
+            <label class="form-label">Time</label>
+            <input class="form-input" type="text" placeholder="e.g. 6:00 p.m.">
+          </div>
+          <div class="form-field">
+            <label class="form-label">Location</label>
+            <input class="form-input" type="text" placeholder="e.g. Fellowship hall">
+          </div>
+        </div>
+        <div class="form-field">
+          <label class="form-label">Description</label>
+          <textarea class="form-textarea" placeholder="Tell us about the event — what it is, who it's for, and why it would be meaningful to the Southside community."></textarea>
+        </div>
+        <div class="form-row">
+          <div class="form-field">
+            <label class="form-label">Your name</label>
+            <input class="form-input" type="text" placeholder="Full name">
+          </div>
+          <div class="form-field">
+            <label class="form-label">Your email</label>
+            <input class="form-input" type="email" placeholder="So we can follow up">
+          </div>
+        </div>
+        <button class="form-submit">Submit event suggestion</button>
+      </div>
+      <p class="form-container__note">Submissions are reviewed by our team. Approved events appear above automatically. You'll hear back within a few days.</p>
+    </div>
+  </section>
+
+  <!-- ── FOOTER ── -->
+  <footer class="site-footer">
+    <p class="site-footer__name">Southside Christian Church</p>
+    <p class="site-footer__addr">
+      1329 East Jackson Rd, South Bend, IN 46614<br>
+      (574) 291-1156
+    </p>
+    <div class="footer-rainbow">
+      <span style="background:#C0472A;"></span>
+      <span style="background:#B8622A;"></span>
+      <span style="background:#B89A2E;"></span>
+      <span style="background:#3B5E45;"></span>
+      <span style="background:#4A8FA3;"></span>
+      <span style="background:#3D4E9E;"></span>
+      <span style="background:#6B4E8A;"></span>
+    </div>
+  </footer>
+
+</div><!-- /.site -->
+
+<script>
+  /*
+  ══════════════════════════════════════════════════════════════
+  GOOGLE SHEETS EVENT LOADER
+  ══════════════════════════════════════════════════════════════
+  SETUP INSTRUCTIONS:
+  1. Create a Google Sheet with these exact column headers in row 1:
+       A: Event Name
+       B: Date         (format: YYYY-MM-DD  e.g. 2026-10-04)
+       C: Display Date (format: Oct 4       shown on card)
+       D: Day          (format: Sat         shown on card)
+       E: Month        (format: Oct         shown on card)
+       F: Time
+       G: Description
+       H: Contact
+       I: RSVP Link    (optional URL)
+       J: Approved     (type: yes to publish)
+
+  2. File → Share → Publish to web
+       - Sheet: Sheet1
+       - Format: CSV
+     Copy the published URL.
+
+  3. Replace PASTE_YOUR_SHEET_CSV_URL_HERE below with that URL.
+
+  4. Each week, open the sheet, type "yes" in column J
+     for any approved events. Past events disappear automatically
+     the day after they occur.
+  ══════════════════════════════════════════════════════════════
+  */
+
+  const SHEET_CSV_URL = 'PASTE_YOUR_SHEET_CSV_URL_HERE';
+
+  // Month name lookup
+  const MONTH_NAMES = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+  const DAY_NAMES   = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
+
+  function parseCSV(text) {
+    const lines = text.trim().split('\n');
+    const headers = lines[0].split(',').map(h => h.trim().replace(/^"|"$/g, ''));
+    return lines.slice(1).map(line => {
+      // Handle quoted fields with commas inside
+      const cols = [];
+      let current = '', inQuotes = false;
+      for (let i = 0; i < line.length; i++) {
+        if (line[i] === '"') { inQuotes = !inQuotes; }
+        else if (line[i] === ',' && !inQuotes) { cols.push(current.trim()); current = ''; }
+        else { current += line[i]; }
+      }
+      cols.push(current.trim());
+      const obj = {};
+      headers.forEach((h, i) => obj[h] = (cols[i] || '').replace(/^"|"$/g, ''));
+      return obj;
+    });
+  }
+
+  function isUpcoming(dateStr) {
+    // Show events that are today or in the future
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+    const eventDate = new Date(dateStr + 'T00:00:00');
+    return eventDate >= today;
+  }
+
+  function buildEventCard(ev) {
+    // Auto-generate month/day/dow from Date column if display fields are empty
+    let month = ev['Month'] || '';
+    let day   = ev['Display Date'] || '';
+    let dow   = ev['Day'] || '';
+
+    if (!month || !day || !dow) {
+      const d = new Date(ev['Date'] + 'T00:00:00');
+      month = MONTH_NAMES[d.getMonth()];
+      day   = d.getDate();
+      dow   = DAY_NAMES[d.getDay()];
+    }
+
+    const rsvp = ev['RSVP Link']
+      ? `<a class="event-footer__rsvp" href="${ev['RSVP Link']}" target="_blank" rel="noopener">RSVP →</a>`
+      : '';
+
+    return `
+      <div class="event-card">
+        <div class="event-date">
+          <span class="event-date__month">${month}</span>
+          <span class="event-date__day">${day}</span>
+          <span class="event-date__dow">${dow}</span>
+        </div>
+        <div class="event-body">
+          <h3 class="event-body__title">${ev['Event Name']}</h3>
+          <p class="event-body__time">${ev['Time']}</p>
+          <p class="event-body__desc">${ev['Description']}</p>
+          <div class="event-footer">
+            <span class="event-footer__contact">${ev['Contact'] ? 'Contact: ' + ev['Contact'] : ''}</span>
+            ${rsvp}
+          </div>
+        </div>
+      </div>
+    `;
+  }
+
+  async function loadEvents() {
+    const container = document.getElementById('events-container');
+
+    // If no sheet URL has been configured yet, show placeholder events
+    if (SHEET_CSV_URL === 'PASTE_YOUR_SHEET_CSV_URL_HERE') {
+      container.innerHTML = `
+        <div class="event-card">
+          <div class="event-date">
+            <span class="event-date__month">Sep</span>
+            <span class="event-date__day">7</span>
+            <span class="event-date__dow">Sun</span>
+          </div>
+          <div class="event-body">
+            <h3 class="event-body__title">Community Potluck</h3>
+            <p class="event-body__time">After worship · ~11:30 a.m.</p>
+            <p class="event-body__desc">Bring a dish to share and stay after service for food, fellowship, and fun. All are welcome — no signup needed, just show up!</p>
+            <div class="event-footer">
+              <span class="event-footer__contact">Contact: church office</span>
+            </div>
+          </div>
+        </div>
+        <div class="event-card">
+          <div class="event-date">
+            <span class="event-date__month">Sep</span>
+            <span class="event-date__day">19</span>
+            <span class="event-date__dow">Fri</span>
+          </div>
+          <div class="event-body">
+            <h3 class="event-body__title">Faith &amp; Film Movie Night</h3>
+            <p class="event-body__time">7:00 p.m. · Member's home</p>
+            <p class="event-body__desc">Our monthly movie night exploring the intersections of faith and culture. This month's film will be announced soon. Light refreshments provided.</p>
+            <div class="event-footer">
+              <span class="event-footer__contact">Contact: Pastor Dorian</span>
+            </div>
+          </div>
+        </div>
+      `;
+      return;
+    }
+
+    try {
+      const res  = await fetch(SHEET_CSV_URL);
+      const text = await res.text();
+      const rows = parseCSV(text);
+
+      // Filter: approved = yes AND date is today or future
+      const upcoming = rows
+        .filter(r => r['Approved'] && r['Approved'].toLowerCase().trim() === 'yes')
+        .filter(r => r['Date'] && isUpcoming(r['Date']))
+        .sort((a, b) => new Date(a['Date']) - new Date(b['Date']));
+
+      if (upcoming.length === 0) {
+        container.innerHTML = `
+          <div class="events-empty" style="display:block;">
+            No upcoming events right now — check back soon, or
+            <a href="#suggest" style="color:#4A8FA3;">suggest one below</a>!
+          </div>`;
+        return;
+      }
+
+      container.innerHTML = upcoming.map(buildEventCard).join('');
+
+    } catch (err) {
+      container.innerHTML = `
+        <div class="events-empty" style="display:block;">
+          Unable to load events right now. Please check back later or call us at (574) 291-1156.
+        </div>`;
+      console.error('Events load error:', err);
+    }
+  }
+
+  loadEvents();
+</script>
+
+</body>
+</html>
