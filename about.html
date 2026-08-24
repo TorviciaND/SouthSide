@@ -1,0 +1,560 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>About Us — Southside Christian Church</title>
+  <meta name="description" content="Meet our pastors, learn our promises to the community, explore our symbols and values, and find answers to common questions about Southside Christian Church.">
+  <link rel="stylesheet" href="css/style.css">
+  <style>
+
+    /* ── PASTORS ── */
+    .pastor-card {
+      background: #fff;
+      border-radius: 8px;
+      border: 1px solid var(--border);
+      overflow: hidden;
+      margin-bottom: 20px;
+    }
+    .pastor-card:last-child { margin-bottom: 0; }
+
+    .pastor-top {
+      display: flex;
+    }
+    .pastor-photo {
+      width: 140px;
+      min-height: 170px;
+      background: #C8D8C4;
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+    .pastor-photo img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    .pastor-photo__placeholder {
+      font-family: var(--sans);
+      font-size: 10px;
+      color: var(--sage);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      opacity: 0.6;
+      writing-mode: vertical-rl;
+      text-align: center;
+    }
+    .pastor-header {
+      padding: 20px 20px 16px;
+      flex: 1;
+    }
+    .pastor-name {
+      font-size: 22px;
+      font-weight: normal;
+      color: var(--text);
+      margin-bottom: 3px;
+    }
+    .pastor-pronouns {
+      font-family: var(--sans);
+      font-size: 12px;
+      color: var(--subtle);
+      margin-bottom: 14px;
+    }
+    .pastor-mission {
+      font-size: 15px;
+      color: #444;
+      line-height: 1.7;
+      font-style: italic;
+      border-left: 3px solid var(--terracotta);
+      padding-left: 14px;
+    }
+    .pastor-body {
+      padding: 0 20px 20px;
+      border-top: 1px solid var(--sand);
+      margin-top: 0;
+      padding-top: 16px;
+    }
+    .pastor-section-label {
+      font-family: var(--sans);
+      font-size: 10px;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: var(--terracotta);
+      margin-bottom: 5px;
+      margin-top: 14px;
+    }
+    .pastor-section-label:first-child { margin-top: 0; }
+    .pastor-text {
+      font-family: var(--sans);
+      font-size: 14px;
+      color: var(--muted);
+      line-height: 1.7;
+    }
+
+    /* ── PROMISES ── */
+    .promise-card {
+      background: #fff;
+      border-radius: 7px;
+      border: 1px solid var(--border);
+      border-top: 3px solid var(--terracotta);
+      padding: 18px;
+    }
+    .promise-title {
+      font-size: 16px;
+      color: var(--text);
+      margin-bottom: 8px;
+    }
+    .promise-body {
+      font-family: var(--sans);
+      font-size: 13px;
+      color: var(--muted);
+      line-height: 1.65;
+    }
+
+    /* ── SYMBOLS ── */
+    .symbol-row {
+      display: flex;
+      margin-bottom: 16px;
+      background: #fff;
+      border-radius: 8px;
+      border: 1px solid var(--border);
+      overflow: hidden;
+    }
+    .symbol-row:last-child { margin-bottom: 0; }
+    .symbol-row.flip { flex-direction: row-reverse; }
+
+    .symbol-img {
+      width: 150px;
+      min-height: 140px;
+      background: #C8D8C4;
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+    .symbol-img img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    .symbol-img__placeholder {
+      font-family: var(--sans);
+      font-size: 9px;
+      color: var(--sage);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      opacity: 0.6;
+      text-align: center;
+      padding: 8px;
+    }
+    .symbol-content {
+      padding: 18px 20px;
+      flex: 1;
+    }
+    .symbol-name {
+      font-size: 17px;
+      color: var(--text);
+      margin-bottom: 8px;
+    }
+    .symbol-desc {
+      font-family: var(--sans);
+      font-size: 13px;
+      color: var(--muted);
+      line-height: 1.7;
+    }
+
+    /* ── FAQ ── */
+    .faq-group {
+      margin-bottom: 28px;
+    }
+    .faq-group:last-child { margin-bottom: 0; }
+
+    .faq-group-title {
+      font-family: var(--sans);
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: var(--terracotta);
+      margin-bottom: 12px;
+      padding-bottom: 8px;
+      border-bottom: 1px solid var(--border);
+    }
+    .faq-item {
+      margin-bottom: 3px;
+      background: #fff;
+      border-radius: 6px;
+      border: 1px solid var(--border);
+      overflow: hidden;
+    }
+    .faq-q {
+      font-family: var(--sans);
+      font-size: 14px;
+      font-weight: bold;
+      color: var(--text);
+      padding: 14px 18px;
+      cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      user-select: none;
+    }
+    .faq-q:hover { background: var(--cream); }
+
+    .faq-arrow {
+      color: var(--terracotta);
+      font-size: 16px;
+      flex-shrink: 0;
+      margin-left: 10px;
+      transition: transform 0.2s ease;
+    }
+    .faq-arrow.open { transform: rotate(180deg); }
+
+    .faq-a {
+      font-family: var(--sans);
+      font-size: 14px;
+      color: var(--muted);
+      line-height: 1.7;
+      padding: 0 18px 16px;
+      display: none;
+    }
+    .faq-a.open { display: block; }
+    .faq-a a {
+      color: var(--sage);
+      text-decoration: underline;
+    }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 600px) {
+      .pastor-top { flex-direction: column; }
+      .pastor-photo { width: 100%; height: 180px; writing-mode: horizontal-tb; }
+      .symbol-row, .symbol-row.flip { flex-direction: column; }
+      .symbol-img { width: 100%; height: 160px; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="site">
+
+  <!-- ── NAVIGATION ── -->
+  <nav aria-label="Main navigation">
+    <div class="nav-rainbow">
+      <a href="index.html"       class="nav-item"        style="background:#C0472A;">Home</a>
+      <a href="about.html"       class="nav-item active" style="background:#B8622A;">About</a>
+      <a href="how-we-live.html" class="nav-item"        style="background:#B89A2E;">How we live</a>
+      <a href="worship.html"     class="nav-item"        style="background:#3B5E45;">Worship</a>
+      <a href="events.html"      class="nav-item"        style="background:#4A8FA3;">Events</a>
+      <a href="give.html"        class="nav-item"        style="background:#3D4E9E;">Give</a>
+      <a href="connect.html"     class="nav-item"        style="background:#6B4E8A;">Connect</a>
+    </div>
+  </nav>
+
+  <!-- ── HERO ── -->
+  <header class="page-hero" style="background:#B8622A;">
+    <p class="page-hero-eyebrow">About us</p>
+    <h1 class="page-hero-title">Who we are and what we believe.</h1>
+  </header>
+
+  <!-- ══════════════════════════════════════
+       PASTORS
+  ══════════════════════════════════════ -->
+  <section class="section section--white" id="pastors">
+    <p class="section-eyebrow" style="color:#B8622A;">Meet our pastors</p>
+    <h2 class="section-title">The people who lead and serve.</h2>
+
+    <!-- Pastor Dorian -->
+    <div class="pastor-card">
+      <div class="pastor-top">
+        <div class="pastor-photo">
+          <!-- <img src="images/pastor-dorian.jpg" alt="Pastor Dorian"> -->
+          <span class="pastor-photo__placeholder">Pastor Dorian photo</span>
+        </div>
+        <div class="pastor-header">
+          <h3 class="pastor-name">Pastor Dorian</h3>
+          <p class="pastor-pronouns">he/they</p>
+          <p class="pastor-mission">"Striving to create space that is safe, brave, and hope-filled — the core work of ministry is found in community building."</p>
+        </div>
+      </div>
+      <div class="pastor-body">
+        <p class="pastor-section-label">Background &amp; experience</p>
+        <p class="pastor-text">Pastor Dorian brings a wide range of ministry experience, from dinner church to traditional settings. He holds a Master's of Divinity from Brite Divinity School and a Bachelor's of Arts in Religious Studies from Franklin College.</p>
+        <p class="pastor-section-label">Beyond the pulpit</p>
+        <p class="pastor-text">Dorian lives locally with his husband and two cats. Outside of ministry, they can be found watching black and white movies, going to punk shows, creating art, and yapping with friends.</p>
+      </div>
+    </div>
+
+    <!-- Pastor Karen -->
+    <div class="pastor-card">
+      <div class="pastor-top">
+        <div class="pastor-photo">
+          <!-- <img src="images/pastor-karen.jpg" alt="Pastor Karen"> -->
+          <span class="pastor-photo__placeholder">Pastor Karen photo</span>
+        </div>
+        <div class="pastor-header">
+          <h3 class="pastor-name">Pastor Karen</h3>
+          <p class="pastor-pronouns">she/her</p>
+          <p class="pastor-mission">"My heart is for sharing God's grace and helping others grow in their faith journey. I'd love to meet you this Sunday!"</p>
+        </div>
+      </div>
+      <div class="pastor-body">
+        <p class="pastor-section-label">Background &amp; experience</p>
+        <p class="pastor-text">Pastor Karen has the privilege of serving the wonderful community at Southside Christian Church in South Bend, Indiana, bringing warmth and pastoral care to all who walk through the doors.</p>
+        <p class="pastor-section-label">Beyond the pulpit</p>
+        <p class="pastor-text">When she's not at the church, you can usually find Karen at the bowling alley, curled up with a good book, or setting off on her next travel adventure.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════
+       PROMISES
+  ══════════════════════════════════════ -->
+  <section class="section section--sand" id="promises">
+    <p class="section-eyebrow" style="color:#B8622A;">Our promises</p>
+    <h2 class="section-title">What we commit to our community.</h2>
+
+    <div class="grid-2">
+      <div class="promise-card">
+        <h3 class="promise-title">A place to connect</h3>
+        <p class="promise-body">We are intentionally fostering an expanding circle of deep, interpersonal relationships.</p>
+      </div>
+      <div class="promise-card">
+        <h3 class="promise-title">A space to grow</h3>
+        <p class="promise-body">We are deepening our worship — honoring familiar traditions while expanding into new, meaningful experiences.</p>
+      </div>
+      <div class="promise-card">
+        <h3 class="promise-title">A safe haven</h3>
+        <p class="promise-body">We are dedicated to maintaining our building and grounds as a safe, welcoming place for all to gather.</p>
+      </div>
+      <div class="promise-card">
+        <h3 class="promise-title">A commitment to creation</h3>
+        <p class="promise-body">We are expanding our Alverna Covenant and Green Chalice initiatives, treating our property as a microcosm of the ecosphere.</p>
+      </div>
+      <div class="promise-card">
+        <h3 class="promise-title">A foundation for the future</h3>
+        <p class="promise-body">We are securing our long-range financial stability, ensuring we can continue our mission and foster new ways of sharing.</p>
+      </div>
+      <div class="promise-card">
+        <h3 class="promise-title">A resource for many</h3>
+        <p class="promise-body">We are broadening our digital impact to become a regional resource for leadership formation and congregational vitality.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════
+       SYMBOLS
+  ══════════════════════════════════════ -->
+  <section class="section section--white" id="symbols">
+    <p class="section-eyebrow" style="color:#B8622A;">Symbols &amp; values</p>
+    <h2 class="section-title">Our building speaks.</h2>
+    <p class="section-desc">Inclusive, affirming, multi-voiced, gifts-based, advocating peace and justice for all — through our symbols we represent our deepest values.</p>
+
+    <div class="symbol-row">
+      <div class="symbol-img">
+        <!-- <img src="images/symbol-circle.jpg" alt="The Circle — our circular building and diverse logo"> -->
+        <span class="symbol-img__placeholder">The Circle photo</span>
+      </div>
+      <div class="symbol-content">
+        <h3 class="symbol-name">The Circle</h3>
+        <p class="symbol-desc">Moving away from traditional rows, our circular building and diverse logo represent complete inclusion — welcoming all races, abilities, gender identities, and sexual orientations into our community.</p>
+      </div>
+    </div>
+
+    <div class="symbol-row flip">
+      <div class="symbol-img">
+        <!-- <img src="images/symbol-chalice.jpg" alt="The Chalice"> -->
+        <span class="symbol-img__placeholder">The Chalice photo</span>
+      </div>
+      <div class="symbol-content">
+        <h3 class="symbol-name">The Chalice</h3>
+        <p class="symbol-desc">As the center of our worship, the chalice represents communion and our connection to the broader Disciples of Christ — a radical welcome to Christ's table where everyone is embraced without exception.</p>
+      </div>
+    </div>
+
+    <div class="symbol-row">
+      <div class="symbol-img">
+        <!-- <img src="images/symbol-tables.jpg" alt="The Tables"> -->
+        <span class="symbol-img__placeholder">The Tables photo</span>
+      </div>
+      <div class="symbol-content">
+        <h3 class="symbol-name">The Tables</h3>
+        <p class="symbol-desc">Our central communion table rests on a globe, symbolizing God's welcome to the entire world. Our fellowship table is draped in a signed tapestry — a gathering place where we light candles and pray for global peace.</p>
+      </div>
+    </div>
+
+    <div class="symbol-row flip">
+      <div class="symbol-img">
+        <!-- <img src="images/symbol-crosses.jpg" alt="The Crosses"> -->
+        <span class="symbol-img__placeholder">The Crosses photo</span>
+      </div>
+      <div class="symbol-content">
+        <h3 class="symbol-name">The Crosses</h3>
+        <p class="symbol-desc">From the illuminated cross representing Jesus' sacrificial values to the straw cross offering a safe, healing embrace — our crosses remind us we are called to follow the Jesus way and provide sanctuary to all.</p>
+      </div>
+    </div>
+
+    <div class="symbol-row">
+      <div class="symbol-img">
+        <!-- <img src="images/symbol-stole.jpg" alt="The Stole"> -->
+        <span class="symbol-img__placeholder">The Stole photo</span>
+      </div>
+      <div class="symbol-content">
+        <h3 class="symbol-name">The Stole</h3>
+        <p class="symbol-desc">Belonging to the late Pastor Bruce Naylor, this stole symbolizes servant leadership. Like Jesus washing his disciples' feet, our leaders serve by offering their God-given gifts rather than asserting superiority.</p>
+      </div>
+    </div>
+
+    <div class="symbol-row flip">
+      <div class="symbol-img">
+        <!-- <img src="images/symbol-wholeness.jpg" alt="Wholeness out of Brokenness"> -->
+        <span class="symbol-img__placeholder">Wholeness photo</span>
+      </div>
+      <div class="symbol-content">
+        <h3 class="symbol-name">Wholeness out of brokenness</h3>
+        <p class="symbol-desc">This powerful symbol illustrates how God creates beauty from our brokenness — our commitment to the transformational work of changing lives and systems to bring wholeness to a fractured world.</p>
+      </div>
+    </div>
+
+    <div class="symbol-row">
+      <div class="symbol-img">
+        <!-- <img src="images/symbol-windows.jpg" alt="The Windows"> -->
+        <span class="symbol-img__placeholder">The Windows photo</span>
+      </div>
+      <div class="symbol-content">
+        <h3 class="symbol-name">The Windows</h3>
+        <p class="symbol-desc">These historic windows acknowledge the generations of faithful people who paved the way for us — reminding us we are part of an ongoing journey connected to a rich history of dreamers and disciples.</p>
+      </div>
+    </div>
+
+    <div class="symbol-row flip">
+      <div class="symbol-img">
+        <!-- <img src="images/symbol-shutters.jpg" alt="The Shutters"> -->
+        <span class="symbol-img__placeholder">The Shutters photo</span>
+      </div>
+      <div class="symbol-content">
+        <h3 class="symbol-name">The Shutters</h3>
+        <p class="symbol-desc">Painted in rainbow colors, these shutters declare our core values of justice, equity, and inclusion — actively proclaiming our commitment to welcome refugees, immigrants, and all marginalized communities.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════
+       FAQ
+  ══════════════════════════════════════ -->
+  <section class="section section--sand" id="faq">
+    <p class="section-eyebrow" style="color:#B8622A;">FAQ</p>
+    <h2 class="section-title">Questions we hear often.</h2>
+
+    <div class="faq-group">
+      <p class="faq-group-title">Worship &amp; welcome</p>
+
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">
+          Is there a dress code?
+          <span class="faq-arrow">▾</span>
+        </div>
+        <div class="faq-a">No. Some members wear jeans and casual wear, others may dress up. You are welcome to wear whatever you are most comfortable in.</div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">
+          Are children welcome?
+          <span class="faq-arrow">▾</span>
+        </div>
+        <div class="faq-a">Yes. Our Sunday services are intergenerational. Children are welcome to participate fully. We also provide "church grandparents" to assist parents so they can participate fully in the service.</div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">
+          Are musical gifts welcome?
+          <span class="faq-arrow">▾</span>
+        </div>
+        <div class="faq-a">Yes. During service we use the New Century Hymnal. Our hymns often include drums — you are welcome to join us in drumming!</div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">
+          Do you perform weddings for all couples?
+          <span class="faq-arrow">▾</span>
+        </div>
+        <div class="faq-a">Yes. Our pastors are inclusive and offer marriage to all who request it and complete our preparation process.</div>
+      </div>
+    </div>
+
+    <div class="faq-group">
+      <p class="faq-group-title">Beliefs &amp; affiliation</p>
+
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">
+          Do you follow a creed?
+          <span class="faq-arrow">▾</span>
+        </div>
+        <div class="faq-a">No. As Disciples of Christ, we have no creed. Our faith is centered on the message of Jesus.</div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">
+          Is communion open to everyone?
+          <span class="faq-arrow">▾</span>
+        </div>
+        <div class="faq-a">Yes. There are no restrictions at our table. Everyone is invited — you do not need to be a member, believe a certain way, or have attended before to receive communion.</div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">
+          Why is there no flag in the sanctuary?
+          <span class="faq-arrow">▾</span>
+        </div>
+        <div class="faq-a">We do not display a US flag because we pledge our ultimate allegiance to the realm of God rather than a nation.</div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">
+          Are you part of a denomination?
+          <span class="faq-arrow">▾</span>
+        </div>
+        <div class="faq-a">We are affiliated with the <a href="https://disciples.org/" target="_blank" rel="noopener">Christian Church (Disciples of Christ)</a> and the <a href="http://indianadisciples.org/" target="_blank" rel="noopener">Indiana Region</a>. Our congregation is locally governed and independent in its decision-making.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── FOOTER ── -->
+  <footer class="site-footer">
+    <p class="site-footer__name">Southside Christian Church</p>
+    <p class="site-footer__addr">
+      1329 East Jackson Rd, South Bend, IN 46614<br>
+      (574) 291-1156
+    </p>
+    <div class="footer-rainbow">
+      <span style="background:#C0472A;"></span>
+      <span style="background:#B8622A;"></span>
+      <span style="background:#B89A2E;"></span>
+      <span style="background:#3B5E45;"></span>
+      <span style="background:#4A8FA3;"></span>
+      <span style="background:#3D4E9E;"></span>
+      <span style="background:#6B4E8A;"></span>
+    </div>
+  </footer>
+
+</div><!-- /.site -->
+
+<script>
+  function toggleFaq(el) {
+    const arrow  = el.querySelector('.faq-arrow');
+    const answer = el.nextElementSibling;
+    const isOpen = answer.classList.contains('open');
+    // Close all open items
+    document.querySelectorAll('.faq-a.open').forEach(a => a.classList.remove('open'));
+    document.querySelectorAll('.faq-arrow.open').forEach(a => a.classList.remove('open'));
+    // Open clicked item if it was closed
+    if (!isOpen) {
+      answer.classList.add('open');
+      arrow.classList.add('open');
+    }
+  }
+</script>
+
+</body>
+</html>
