@@ -1,0 +1,520 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Give — Southside Christian Church</title>
+  <meta name="description" content="Support the mission of Southside Christian Church. Give online securely through Tithely, or join us Sunday at 10:00 a.m. for the offering.">
+  <link rel="stylesheet" href="css/style.css">
+  <style>
+
+    /* ── IMPACT CARDS ── */
+    .impact-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 14px;
+    }
+    .impact-card {
+      background: #fff;
+      border-radius: 7px;
+      border: 1px solid var(--border);
+      border-top: 3px solid #3D4E9E;
+      padding: 20px;
+      text-align: center;
+    }
+    .impact-card__icon {
+      font-size: 26px;
+      margin-bottom: 10px;
+    }
+    .impact-card__label {
+      font-family: var(--sans);
+      font-size: 13px;
+      font-weight: bold;
+      color: var(--text);
+      margin-bottom: 5px;
+    }
+    .impact-card__desc {
+      font-family: var(--sans);
+      font-size: 12px;
+      color: var(--muted);
+      line-height: 1.6;
+    }
+
+    /* ── GIVING WIDGET CONTAINER ── */
+    .give-container {
+      background: #fff;
+      border-radius: 8px;
+      border: 1px solid var(--border);
+      overflow: hidden;
+    }
+    .give-container__header {
+      background: #3D4E9E;
+      padding: 16px 24px;
+    }
+    .give-container__title {
+      font-family: var(--sans);
+      font-size: 14px;
+      font-weight: bold;
+      color: #fff;
+      letter-spacing: 0.04em;
+      margin-bottom: 2px;
+    }
+    .give-container__sub {
+      font-family: var(--sans);
+      font-size: 12px;
+      color: #C0C8F0;
+    }
+
+    /* ── TITHELY EMBED ── */
+    .tithely-embed {
+      width: 100%;
+      min-height: 560px;
+      border: none;
+      display: block;
+    }
+
+    /* ── FALLBACK GIVING FORM (shown until Tithely is set up) ── */
+    .give-body { padding: 24px; }
+
+    .freq-toggle {
+      display: flex;
+      background: var(--sand);
+      border-radius: 6px;
+      padding: 3px;
+      margin-bottom: 22px;
+      border: 1px solid var(--border);
+    }
+    .freq-btn {
+      flex: 1;
+      padding: 9px;
+      text-align: center;
+      font-family: var(--sans);
+      font-size: 12px;
+      font-weight: bold;
+      border-radius: 4px;
+      cursor: pointer;
+      color: var(--subtle);
+      user-select: none;
+      transition: all 0.15s;
+    }
+    .freq-btn.active {
+      background: #3D4E9E;
+      color: #fff;
+    }
+
+    .amount-label {
+      font-family: var(--sans);
+      font-size: 11px;
+      font-weight: bold;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: #555;
+      margin-bottom: 9px;
+    }
+    .amount-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 8px;
+      margin-bottom: 10px;
+    }
+    .amount-btn {
+      padding: 13px 8px;
+      text-align: center;
+      border-radius: 6px;
+      border: 1px solid var(--border);
+      font-family: var(--sans);
+      font-size: 15px;
+      font-weight: bold;
+      color: var(--text);
+      cursor: pointer;
+      background: var(--cream);
+      transition: all 0.15s;
+      user-select: none;
+    }
+    .amount-btn:hover { border-color: #3D4E9E; }
+    .amount-btn.active {
+      background: #3D4E9E;
+      color: #fff;
+      border-color: #3D4E9E;
+    }
+    .amount-btn.custom {
+      font-size: 13px;
+      color: var(--muted);
+      font-weight: normal;
+    }
+
+    #customAmt {
+      width: 100%;
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      padding: 10px 13px;
+      font-family: var(--sans);
+      font-size: 16px;
+      color: var(--text);
+      background: var(--cream);
+      outline: none;
+      margin-bottom: 10px;
+      display: none;
+    }
+    #customAmt:focus { border-color: #3D4E9E; background: #fff; }
+    #customAmt.show { display: block; }
+
+    .cover-fees {
+      background: #EEF0FF;
+      border: 1px solid #C0C8F0;
+      border-radius: 6px;
+      padding: 13px 16px;
+      margin-bottom: 22px;
+      display: flex;
+      align-items: flex-start;
+      gap: 11px;
+    }
+    .cover-fees__check {
+      width: 18px;
+      height: 18px;
+      border: 2px solid #3D4E9E;
+      border-radius: 3px;
+      flex-shrink: 0;
+      margin-top: 1px;
+      background: #3D4E9E;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+    }
+    .cover-fees__check::after {
+      content: '✓';
+      color: #fff;
+      font-size: 11px;
+      font-weight: bold;
+    }
+    .cover-fees__text {
+      font-family: var(--sans);
+      font-size: 13px;
+      color: #3D4E9E;
+      line-height: 1.6;
+    }
+
+    .give-submit {
+      width: 100%;
+      background: #3D4E9E;
+      color: #fff;
+      font-family: var(--sans);
+      font-size: 14px;
+      font-weight: bold;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      padding: 15px;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: opacity 0.15s;
+    }
+    .give-submit:hover { opacity: 0.88; }
+
+    .give-container__footer {
+      padding: 13px 24px;
+      border-top: 1px solid var(--sand);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+    .secure-note {
+      font-family: var(--sans);
+      font-size: 12px;
+      color: var(--subtle);
+    }
+    .fallback-link {
+      font-family: var(--sans);
+      font-size: 12px;
+      color: #3D4E9E;
+      text-decoration: none;
+    }
+    .fallback-link:hover { text-decoration: underline; }
+
+    /* ── HEART SECTION ── */
+    .heart-quote {
+      border-left: 4px solid #3D4E9E;
+      padding: 18px 22px;
+      background: #fff;
+      border-radius: 0 7px 7px 0;
+      margin-bottom: 20px;
+    }
+    .heart-quote__text {
+      font-size: 18px;
+      color: var(--text);
+      line-height: 1.7;
+      font-style: italic;
+      margin-bottom: 12px;
+    }
+    .heart-quote__sub {
+      font-family: var(--sans);
+      font-size: 14px;
+      color: var(--muted);
+      line-height: 1.75;
+    }
+
+    .offering-note {
+      background: #fff;
+      border-radius: 7px;
+      border: 1px solid var(--border);
+      padding: 20px 22px;
+      display: flex;
+      align-items: flex-start;
+      gap: 16px;
+    }
+    .offering-note__icon {
+      font-size: 26px;
+      flex-shrink: 0;
+      margin-top: 2px;
+    }
+    .offering-note__title {
+      font-size: 16px;
+      color: var(--text);
+      margin-bottom: 5px;
+    }
+    .offering-note__body {
+      font-family: var(--sans);
+      font-size: 14px;
+      color: var(--muted);
+      line-height: 1.7;
+    }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 600px) {
+      .impact-grid { grid-template-columns: 1fr; }
+      .amount-grid { grid-template-columns: repeat(2, 1fr); }
+      .give-container__footer { flex-direction: column; align-items: flex-start; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="site">
+
+  <!-- ── NAVIGATION ── -->
+  <nav aria-label="Main navigation">
+    <div class="nav-rainbow">
+      <a href="index.html"       class="nav-item"        style="background:#C0472A;">Home</a>
+      <a href="about.html"       class="nav-item"        style="background:#B8622A;">About</a>
+      <a href="how-we-live.html" class="nav-item"        style="background:#B89A2E;">How we live</a>
+      <a href="worship.html"     class="nav-item"        style="background:#3B5E45;">Worship</a>
+      <a href="events.html"      class="nav-item"        style="background:#4A8FA3;">Events</a>
+      <a href="give.html"        class="nav-item active" style="background:#3D4E9E;">Give</a>
+      <a href="connect.html"     class="nav-item"        style="background:#6B4E8A;">Connect</a>
+    </div>
+  </nav>
+
+  <!-- ── HERO ── -->
+  <header class="page-hero" style="background:#3D4E9E;">
+    <p class="page-hero-eyebrow">Give</p>
+    <h1 class="page-hero-title">Support the mission of Southside.</h1>
+    <p class="page-hero-sub">Your generosity makes it possible for us to welcome all people, serve our neighbors, and keep our doors open to everyone — regardless.</p>
+  </header>
+
+  <!-- ══════════════════════════════════════
+       WHY YOUR GIFT MATTERS
+  ══════════════════════════════════════ -->
+  <section class="section section--white" id="impact">
+    <p class="section-eyebrow" style="color:#3D4E9E;">Why your gift matters</p>
+    <h2 class="section-title">What giving makes possible.</h2>
+
+    <div class="impact-grid">
+      <div class="impact-card">
+        <div class="impact-card__icon">🕊️</div>
+        <p class="impact-card__label">Weekly worship</p>
+        <p class="impact-card__desc">Keeping our doors open every Sunday for all who need a place to belong.</p>
+      </div>
+      <div class="impact-card">
+        <div class="impact-card__icon">🌍</div>
+        <p class="impact-card__label">Global mission</p>
+        <p class="impact-card__desc">Supporting girls' education in rural Uganda through our SITEAW partnership.</p>
+      </div>
+      <div class="impact-card">
+        <div class="impact-card__icon">🤝</div>
+        <p class="impact-card__label">Community care</p>
+        <p class="impact-card__desc">Funding grief support, recycling programs, and local outreach and advocacy.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════
+       GIVING WIDGET
+  ══════════════════════════════════════ -->
+  <section class="section section--sand" id="give">
+    <p class="section-eyebrow" style="color:#3D4E9E;">Make a gift</p>
+    <h2 class="section-title">Give online — securely and easily.</h2>
+    <p class="section-desc">One-time or recurring, every gift makes a difference. You can also choose which fund your gift supports.</p>
+
+    <div class="give-container">
+      <div class="give-container__header">
+        <p class="give-container__title">Southside Christian Church — Online Giving</p>
+        <p class="give-container__sub">Secure · Tax-deductible · Powered by Tithely</p>
+      </div>
+
+      <!--
+        ══════════════════════════════════════════════════════════
+        TITHELY EMBED INSTRUCTIONS
+        ══════════════════════════════════════════════════════════
+        1. Sign up at tithe.ly and create your church account
+        2. Go to Give → Giving Widget → Get Embed Code
+        3. Copy the iframe code Tithely provides
+        4. Replace the entire <div class="give-body">...</div>
+           block below with Tithely's iframe, like:
+
+           <iframe
+             class="tithely-embed"
+             src="https://tithe.ly/give_new/www/#/tithely/give-one-time/XXXXXX"
+             title="Give to Southside Christian Church">
+           </iframe>
+
+        5. Remove the JavaScript at the bottom of this file
+           (the amount/frequency toggle logic) — Tithely handles
+           all of that in their own widget.
+        ══════════════════════════════════════════════════════════
+
+        FALLBACK — shown until Tithely is connected:
+      -->
+      <div class="give-body">
+
+        <!-- FREQUENCY TOGGLE -->
+        <div class="freq-toggle">
+          <div class="freq-btn active" onclick="setFreq(this)">Give once</div>
+          <div class="freq-btn" onclick="setFreq(this)">Give weekly</div>
+          <div class="freq-btn" onclick="setFreq(this)">Give monthly</div>
+        </div>
+
+        <!-- AMOUNT SELECTOR -->
+        <p class="amount-label">Select an amount</p>
+        <div class="amount-grid">
+          <div class="amount-btn" onclick="setAmount(this, '$25')">$25</div>
+          <div class="amount-btn active" onclick="setAmount(this, '$50')">$50</div>
+          <div class="amount-btn" onclick="setAmount(this, '$100')">$100</div>
+          <div class="amount-btn" onclick="setAmount(this, '$250')">$250</div>
+          <div class="amount-btn" onclick="setAmount(this, '$500')">$500</div>
+          <div class="amount-btn custom" onclick="setCustom(this)">Custom amount</div>
+        </div>
+        <input id="customAmt" type="number" placeholder="Enter amount ($)" oninput="updateBtn()">
+
+        <!-- FUND DESIGNATION -->
+        <div class="form-field" style="margin-bottom:18px; margin-top:4px;">
+          <label class="form-label">Designate your gift</label>
+          <select class="form-select">
+            <option>General fund</option>
+            <option>Uganda education mission</option>
+            <option>Building &amp; grounds</option>
+            <option>Healing grief ministry</option>
+            <option>Where needed most</option>
+          </select>
+        </div>
+
+        <!-- NAME & EMAIL -->
+        <div class="form-row">
+          <div class="form-field">
+            <label class="form-label">First name</label>
+            <input class="form-input" type="text" placeholder="First name">
+          </div>
+          <div class="form-field">
+            <label class="form-label">Last name</label>
+            <input class="form-input" type="text" placeholder="Last name">
+          </div>
+        </div>
+        <div class="form-field" style="margin-bottom:18px;">
+          <label class="form-label">Email</label>
+          <input class="form-input" type="email" placeholder="For your tax receipt">
+        </div>
+
+        <!-- COVER FEES -->
+        <div class="cover-fees">
+          <div class="cover-fees__check"></div>
+          <p class="cover-fees__text">I'd like to cover the processing fee so 100% of my gift reaches Southside.</p>
+        </div>
+
+        <button class="give-submit" id="give-btn">Give $50 →</button>
+      </div>
+
+      <div class="give-container__footer">
+        <span class="secure-note">🔒 Secure · encrypted · no account required</span>
+        <a class="fallback-link" href="https://tithe.ly" target="_blank" rel="noopener">Having trouble? Give directly on Tithely →</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════
+       A WORD ABOUT GIVING
+  ══════════════════════════════════════ -->
+  <section class="section section--white" id="heart">
+    <p class="section-eyebrow" style="color:#3D4E9E;">A word about giving</p>
+    <h2 class="section-title">Giving is personal.</h2>
+
+    <div class="heart-quote">
+      <p class="heart-quote__text">We believe giving is first and foremost a conversation between you and God — not a transaction, not an obligation, and never a measure of your worth or welcome here.</p>
+      <p class="heart-quote__sub">Whatever you give — of your time, your presence, your resources — it matters. The amount is between you and God. We are simply grateful for every expression of generosity, in whatever form it takes.</p>
+    </div>
+
+    <div class="offering-note">
+      <div class="offering-note__icon">🙏</div>
+      <div>
+        <h3 class="offering-note__title">Prefer to give in person?</h3>
+        <p class="offering-note__body">An offering is collected during our Sunday worship service at 10:00 a.m. You are always welcome to give there — or simply to show up, which is a gift in itself.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── FOOTER ── -->
+  <footer class="site-footer">
+    <p class="site-footer__name">Southside Christian Church</p>
+    <p class="site-footer__addr">
+      1329 East Jackson Rd, South Bend, IN 46614<br>
+      (574) 291-1156
+    </p>
+    <div class="footer-rainbow">
+      <span style="background:#C0472A;"></span>
+      <span style="background:#B8622A;"></span>
+      <span style="background:#B89A2E;"></span>
+      <span style="background:#3B5E45;"></span>
+      <span style="background:#4A8FA3;"></span>
+      <span style="background:#3D4E9E;"></span>
+      <span style="background:#6B4E8A;"></span>
+    </div>
+  </footer>
+
+</div><!-- /.site -->
+
+<script>
+  /* ── Amount / frequency toggle logic ──
+     Remove this entire script block once Tithely is embedded,
+     as Tithely's widget handles all of this natively.        */
+
+  function setFreq(el) {
+    document.querySelectorAll('.freq-btn').forEach(b => b.classList.remove('active'));
+    el.classList.add('active');
+  }
+
+  function setAmount(el, label) {
+    document.querySelectorAll('.amount-btn').forEach(b => b.classList.remove('active'));
+    el.classList.add('active');
+    document.getElementById('customAmt').classList.remove('show');
+    document.getElementById('give-btn').textContent = 'Give ' + label + ' →';
+  }
+
+  function setCustom(el) {
+    document.querySelectorAll('.amount-btn').forEach(b => b.classList.remove('active'));
+    el.classList.add('active');
+    document.getElementById('customAmt').classList.add('show');
+    document.getElementById('customAmt').focus();
+    document.getElementById('give-btn').textContent = 'Give →';
+  }
+
+  function updateBtn() {
+    const val = document.getElementById('customAmt').value;
+    document.getElementById('give-btn').textContent = val
+      ? 'Give $' + parseFloat(val).toFixed(0) + ' →'
+      : 'Give →';
+  }
+</script>
+
+</body>
+</html>
