@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Southside Christian Church — South Bend, Indiana</title>
+  <meta name="description" content="A Disciples of Christ church in South Bend, Indiana. Traditional in worship, non-traditional in thinking, radically committed. All people are welcome — regardless.">
+  <link rel="stylesheet" href="css/style.css">
+  <style>
+    /* ── Page-specific styles ── */
+
+    /* HERO */
+    .home-hero {
+      background: var(--sage);
+      padding: 52px 32px 44px;
+      text-align: center;
+    }
+    .home-hero .page-hero-sub {
+      margin: 0 auto 28px;
+    }
+    .home-hero .btn--primary {
+      background: var(--red);
+    }
+
+    /* CHURCH PHOTO */
+    .church-photo {
+      width: 100%;
+      height: 260px;
+      background: #C8D8C4;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-top: 5px solid var(--red);
+      overflow: hidden;
+    }
+    .church-photo img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    .church-photo__placeholder {
+      font-family: var(--sans);
+      font-size: 13px;
+      color: var(--sage);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      opacity: 0.6;
+    }
+
+    /* WHO WE ARE PILLARS */
+    .pillar {
+      border-left: 4px solid var(--red);
+      padding: 16px 20px;
+      margin-bottom: 16px;
+      background: #fff;
+      border-radius: 0 7px 7px 0;
+    }
+    .pillar:nth-child(2) { border-left-color: var(--gold); }
+    .pillar:nth-child(3) { border-left-color: var(--sage); }
+    .pillar:last-child   { margin-bottom: 0; }
+
+    .pillar__title {
+      font-size: 19px;
+      font-weight: normal;
+      color: var(--text);
+      margin-bottom: 7px;
+    }
+    .pillar__body {
+      font-family: var(--sans);
+      font-size: 14px;
+      color: var(--muted);
+      line-height: 1.7;
+    }
+
+    /* SYMBOLS TEASER */
+    .symbols-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+    }
+    .symbol-card {
+      background: #fff;
+      border-radius: 7px;
+      border: 1px solid var(--border);
+      overflow: hidden;
+    }
+    .symbol-card__img {
+      height: 130px;
+      background: #C8D8C4;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+    .symbol-card__img img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    .symbol-card__img .placeholder {
+      font-family: var(--sans);
+      font-size: 10px;
+      color: var(--sage);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      opacity: 0.6;
+    }
+    .symbol-card__info {
+      padding: 12px 14px;
+    }
+    .symbol-card__name {
+      font-size: 15px;
+      color: var(--text);
+      margin-bottom: 4px;
+    }
+    .symbol-card__link {
+      font-family: var(--sans);
+      font-size: 12px;
+      color: var(--sage);
+      text-decoration: none;
+      letter-spacing: 0.03em;
+    }
+    .symbol-card__link:hover { text-decoration: underline; }
+
+    /* AFFILIATIONS */
+    .affiliations {
+      padding: 22px 32px;
+      background: var(--cream);
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      flex-wrap: wrap;
+      border-top: 1px solid var(--border);
+    }
+    .affiliations__label {
+      font-family: var(--sans);
+      font-size: 10px;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: var(--subtle);
+      flex-shrink: 0;
+    }
+    .affil-badge {
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      padding: 6px 13px;
+      font-family: var(--sans);
+      font-size: 12px;
+      color: var(--sage);
+      font-weight: bold;
+      text-decoration: none;
+    }
+    .affil-badge:hover { background: var(--sand); }
+  </style>
+</head>
+<body>
+
+<div class="site">
+
+  <!-- ── NAVIGATION ── -->
+  <nav aria-label="Main navigation">
+    <div class="nav-rainbow">
+      <a href="index.html"         class="nav-item active" style="background:var(--red);">Home</a>
+      <a href="about.html"         class="nav-item"        style="background:var(--terracotta);">About</a>
+      <a href="how-we-live.html"   class="nav-item"        style="background:var(--gold);">How we live</a>
+      <a href="worship.html"       class="nav-item"        style="background:var(--sage);">Worship</a>
+      <a href="events.html"        class="nav-item"        style="background:var(--blue);">Events</a>
+      <a href="give.html"          class="nav-item"        style="background:var(--indigo);">Give</a>
+      <a href="connect.html"       class="nav-item"        style="background:var(--violet);">Connect</a>
+    </div>
+  </nav>
+
+  <!-- ── HERO ── -->
+  <header class="home-hero">
+    <p class="page-hero-eyebrow">Disciples of Christ · South Bend, Indiana</p>
+    <h1 class="page-hero-title">Come home to Southside.</h1>
+    <p class="page-hero-sub">Experience the freedom of God's love.<br>All people are welcome — regardless.</p>
+    <a href="connect.html" class="btn btn--primary">Plan your visit</a>
+  </header>
+
+  <!-- ── CHURCH PHOTO ── -->
+  <div class="church-photo">
+    <!-- Replace src with actual church photo path -->
+    <!-- <img src="images/church-exterior.jpg" alt="Exterior of Southside Christian Church, South Bend, Indiana"> -->
+    <span class="church-photo__placeholder">Church exterior photo</span>
+  </div>
+
+  <!-- ── SERVICE TIME BANNER ── -->
+  <div class="service-banner">
+    <strong>Sunday Worship — 10:00 a.m.</strong> &nbsp;·&nbsp; 1329 East Jackson Rd, South Bend, IN 46614
+  </div>
+
+  <!-- ── WHO WE ARE ── -->
+  <section class="section section--cream">
+    <p class="section-eyebrow" style="color:var(--sage);">Who we are</p>
+    <h2 class="section-title">Three things that define us.</h2>
+
+    <div class="pillar">
+      <h3 class="pillar__title">Traditional in worship.</h3>
+      <p class="pillar__body">We find deep comfort in the historic rhythms of faith — classic hymns, prayers, and liturgy that create a familiar, peaceful space to quiet your mind and connect with God.</p>
+    </div>
+
+    <div class="pillar">
+      <h3 class="pillar__title">Non-traditional in thinking.</h3>
+      <p class="pillar__body">You don't have to leave your brain or your authentic self at the door. We celebrate questions, encourage open-minded exploration, and believe faith is a journey we navigate together.</p>
+    </div>
+
+    <div class="pillar">
+      <h3 class="pillar__title">Radically committed.</h3>
+      <p class="pillar__body">We take the call to love our neighbors seriously — through community support, advocacy for justice, and simply showing up for one another in times of need.</p>
+    </div>
+  </section>
+
+  <!-- ── SYMBOLS TEASER ── -->
+  <section class="section section--sand">
+    <p class="section-eyebrow" style="color:var(--sage);">Symbols &amp; values</p>
+    <h2 class="section-title">Our building speaks.</h2>
+    <p class="section-desc">Inclusive, affirming, multi-voiced — the symbols in our space tell the story of who we are and what we believe.</p>
+
+    <div class="symbols-grid">
+      <div class="symbol-card">
+        <div class="symbol-card__img">
+          <!-- <img src="images/stained-glass.jpg" alt="Arched stained glass windows at Southside Christian Church"> -->
+          <span class="placeholder">Stained glass photo</span>
+        </div>
+        <div class="symbol-card__info">
+          <p class="symbol-card__name">Arched windows</p>
+          <a class="symbol-card__link" href="about.html#symbols">See all symbols →</a>
+        </div>
+      </div>
+      <div class="symbol-card">
+        <div class="symbol-card__img">
+          <!-- <img src="images/candles.jpg" alt="Candles of peace and prayer at Southside Christian Church"> -->
+          <span class="placeholder">Candles photo</span>
+        </div>
+        <div class="symbol-card__info">
+          <p class="symbol-card__name">Candles of peace</p>
+          <a class="symbol-card__link" href="about.html#symbols">See all symbols →</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── AFFILIATIONS ── -->
+  <div class="affiliations">
+    <span class="affiliations__label">Affiliated with</span>
+    <a class="affil-badge" href="https://disciples.org/" target="_blank" rel="noopener">Disciples of Christ</a>
+    <a class="affil-badge" href="http://indianadisciples.org/" target="_blank" rel="noopener">Indiana Region</a>
+    <a class="affil-badge" href="#" target="_blank" rel="noopener">GLAD</a>
+  </div>
+
+  <!-- ── FOOTER ── -->
+  <footer class="site-footer">
+    <p class="site-footer__name">Southside Christian Church</p>
+    <p class="site-footer__addr">
+      1329 East Jackson Rd, South Bend, IN 46614<br>
+      (574) 291-1156
+    </p>
+    <div class="footer-rainbow">
+      <span style="background:var(--red);"></span>
+      <span style="background:var(--terracotta);"></span>
+      <span style="background:var(--gold);"></span>
+      <span style="background:var(--sage);"></span>
+      <span style="background:var(--blue);"></span>
+      <span style="background:var(--indigo);"></span>
+      <span style="background:var(--violet);"></span>
+    </div>
+  </footer>
+
+</div><!-- /.site -->
+
+</body>
+</html>
