@@ -256,53 +256,13 @@
            https://docs.google.com/forms/d/e/XXXX/viewform?embedded=true)
         5. Delete the fallback form below the iframe comment block
         ══════════════════════════════════════════════════════════
-
-        OPTION A — Google Form embed (recommended, replace URL below):
+		-->
         <iframe
           class="google-form-embed"
-          src="PASTE_YOUR_GOOGLE_FORM_EMBED_URL_HERE"
+          src="https://docs.google.com/forms/d/e/1FAIpQLSfFww3N5D84mOaLAy_I4Kx719OEIjb9pYbxLFvd8FDd2HcBTg/viewform?embedded=true"
           title="Event suggestion form">
         </iframe>
 
-        OPTION B — Fallback HTML form shown until Google Form is set up:
-      -->
-      <div class="form-container__body">
-        <div class="form-row">
-          <div class="form-field">
-            <label class="form-label">Event name</label>
-            <input class="form-input" type="text" placeholder="e.g. Neighborhood Potluck">
-          </div>
-          <div class="form-field">
-            <label class="form-label">Suggested date</label>
-            <input class="form-input" type="text" placeholder="e.g. October 12, 2026">
-          </div>
-        </div>
-        <div class="form-row">
-          <div class="form-field">
-            <label class="form-label">Time</label>
-            <input class="form-input" type="text" placeholder="e.g. 6:00 p.m.">
-          </div>
-          <div class="form-field">
-            <label class="form-label">Location</label>
-            <input class="form-input" type="text" placeholder="e.g. Fellowship hall">
-          </div>
-        </div>
-        <div class="form-field">
-          <label class="form-label">Description</label>
-          <textarea class="form-textarea" placeholder="Tell us about the event — what it is, who it's for, and why it would be meaningful to the Southside community."></textarea>
-        </div>
-        <div class="form-row">
-          <div class="form-field">
-            <label class="form-label">Your name</label>
-            <input class="form-input" type="text" placeholder="Full name">
-          </div>
-          <div class="form-field">
-            <label class="form-label">Your email</label>
-            <input class="form-input" type="email" placeholder="So we can follow up">
-          </div>
-        </div>
-        <button class="form-submit">Submit event suggestion</button>
-      </div>
       <p class="form-container__note">Submissions are reviewed by our team. Approved events appear above automatically. You'll hear back within a few days.</p>
     </div>
   </section>
@@ -358,7 +318,7 @@
   ══════════════════════════════════════════════════════════════
   */
 
-  const SHEET_CSV_URL = 'PASTE_YOUR_SHEET_CSV_URL_HERE';
+  const SHEET_CSV_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQgGPZdpAY6zvpE0jm23VhEHhFNvOsDJYDlQ6cCF9o-GD-8I4wDTpiTmvGgHkAxH6YBGoxLqma99o-J/pub?gid=1845302250&single=true&output=csv';
 
   // Month name lookup
   const MONTH_NAMES = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
@@ -432,36 +392,14 @@
     const container = document.getElementById('events-container');
 
     // If no sheet URL has been configured yet, show placeholder events
-    if (SHEET_CSV_URL === 'PASTE_YOUR_SHEET_CSV_URL_HERE') {
+    if (SHEET_CSV_URL === 'none') {
       container.innerHTML = `
         <div class="event-card">
           <div class="event-date">
-            <span class="event-date__month">Sep</span>
-            <span class="event-date__day">7</span>
-            <span class="event-date__dow">Sun</span>
+
           </div>
           <div class="event-body">
-            <h3 class="event-body__title">Community Potluck</h3>
-            <p class="event-body__time">After worship · ~11:30 a.m.</p>
-            <p class="event-body__desc">Bring a dish to share and stay after service for food, fellowship, and fun. All are welcome — no signup needed, just show up!</p>
-            <div class="event-footer">
-              <span class="event-footer__contact">Contact: church office</span>
-            </div>
-          </div>
-        </div>
-        <div class="event-card">
-          <div class="event-date">
-            <span class="event-date__month">Sep</span>
-            <span class="event-date__day">19</span>
-            <span class="event-date__dow">Fri</span>
-          </div>
-          <div class="event-body">
-            <h3 class="event-body__title">Faith &amp; Film Movie Night</h3>
-            <p class="event-body__time">7:00 p.m. · Member's home</p>
-            <p class="event-body__desc">Our monthly movie night exploring the intersections of faith and culture. This month's film will be announced soon. Light refreshments provided.</p>
-            <div class="event-footer">
-              <span class="event-footer__contact">Contact: Pastor Dorian</span>
-            </div>
+            <h3 class="event-body__title">There are currently no events.</h3>
           </div>
         </div>
       `;
